@@ -16,11 +16,17 @@ export class PoolPrice {
   @PrimaryColumn({ name: "pool_id", type: "varchar" })
   poolId!: string;
 
-  @Column({ type: "numeric" })
+  @Column({ name: "price_token", type: "numeric" })
   priceToken!: number; // Price in base token (e.g., SOL)
 
-  @Column({ type: "numeric" })
+  @Column({ name: "price_usd", type: "numeric" })
   priceUSD!: number; // Price in USD
+
+  @Column({ name: "mint_a_amount", type: "numeric" })
+  mintAamount!: number; // amount of token A in pool
+
+  @Column({ name: "mint_b_amount", type: "numeric" })
+  mintBamount!: number; // amount of token B in pool
 
   @TimeColumn()
   time!: Date;

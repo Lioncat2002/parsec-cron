@@ -27,10 +27,10 @@ export async function CreateNewPool(
 
 export async function GetPoolIds() {
   const metadataRepo = AppDataSource.getRepository(PoolMetadata);
-  const ids = await metadataRepo
+  const ids =  (await (metadataRepo
     .createQueryBuilder("pool_metadata")
     .select("pool_metadata.pool_id")
-    .getRawMany();
+    .getRawMany())).map(e => e.pool_id);
   
     return ids;
 }

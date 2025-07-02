@@ -8,7 +8,7 @@ async function main() {
     await Connect(CONNECTION, new PublicKey(RAYDIUM_PUBLIC_KEY), "initialize2");
   else if (SERVER_TYPE == "price") {
     console.log("Started price cron");
-    setInterval(PriceCron, 60 * 1000);
+    setInterval(PriceCron, 30 * 60 * 1000); // run every 10 mins
   } // 1 min
   // keep process alive forever
   await new Promise(() => {});

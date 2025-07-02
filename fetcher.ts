@@ -55,7 +55,7 @@ export async function fetchRaydiumPools(txId: string, connection: Connection) {
       const token = await METAPLEX.nfts().findByMint({
         mintAddress: tokenBAccount,
       });
-      tokenAName = token.name;
+      tokenBName = token.name;
     }
 
     const displayData = [

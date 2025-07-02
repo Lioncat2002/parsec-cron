@@ -11,7 +11,5 @@ export async function fetchPoolInfoByID(poolIds: string) {
     `${RAYDIUM_BASE_URL}/pools/info/ids?ids=${poolIds}`
   );
   const data = response.data;
-
-  console.log(data);
   return data;
 }
