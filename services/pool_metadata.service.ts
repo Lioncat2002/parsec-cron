@@ -8,29 +8,35 @@ export async function CreateNewPool(
   tokenAMint: string,
   tokenBMint: string
 ) {
-  const metadataRepo = AppDataSource.getRepository(PoolMetadata);
+  try {
+    const metadataRepo = AppDataSource.getRepository(PoolMetadata);
 
-  const poolExists = await metadataRepo.findOneBy({ poolId });
-  if (!poolExists) {
-    const meta = metadataRepo.create({
-      poolId,
-      tokenA,
-      tokenB,
-      tokenAMint,
-      tokenBMint,
-    });
-    await metadataRepo.save(meta);
-  } else {
-    console.log("Pool already exists", poolId);
+    const poolExists = await metadataRepo.findOneBy({ poolId });
+    if (!poolExists) {
+      const meta = metadataRepo.create({
+        poolId,
+        tokenA,
+        tokenB,
+        tokenAMint,
+        tokenBMint,
+      });
+      await metadataRepo.save(meta);
+    } else {
+      console.log("Pool already exists", poolId);
+    }
+  } catch (err) {
+    console.log("Failed creating new pool", err);
   }
 }
 
 export async function GetPoolIds() {
   const metadataRepo = AppDataSource.getRepository(PoolMetadata);
-  const ids =  (await (metadataRepo
-    .createQueryBuilder("pool_metadata")
-    .select("pool_metadata.pool_id")
-    .getRawMany())).map(e => e.pool_id);
-  
-    return ids;
+  const ids = (
+    await metadataRepo
+      .createQueryBuilder("pool_metadata")
+      .select("pool_metadata.pool_id")
+      .getRawMany()
+  ).map((e) => e.pool_id);
+
+  return ids;
 }
