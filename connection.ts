@@ -1,5 +1,7 @@
 import { Connection, PublicKey } from "@solana/web3.js";
 import { fetchRaydiumPools } from "./fetcher";
+import { GetPoolIds } from "./services/pool_metadata.service";
+import { fetchPoolInfoByID } from "./utils/price.utils";
 
 export async function Connect(
   connection: Connection,
@@ -21,4 +23,13 @@ export async function Connect(
     },
     "finalized"
   );
+}
+
+
+export async function PriceCron(){
+    const poolIds=await GetPoolIds()
+    const poolIdsStr=poolIds.join(",")
+    console.log(poolIdsStr)
+    const data=await fetchPoolInfoByID(poolIdsStr)
+    console.log(data.data)
 }
